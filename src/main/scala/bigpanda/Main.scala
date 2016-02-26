@@ -1,6 +1,7 @@
 package bigpanda
 
 import akka.actor.ActorSystem
+import bigpanda.dao.EntityManagers
 import bigpanda.pipeline._
 import bigpanda.pipeline.api.{InputParser, InputConsumer, EventProcessor}
 import bigpanda.pipeline.impl.{PandaEventProcessor, JsonInputParser, FileInputConsumer}
@@ -47,6 +48,7 @@ object Main extends App with SimpleRoutingApp {
 
   private def clean(): Unit = {
     consumer.close()
+    EntityManagers.close()
   }
 
   private def startREST(): Unit = {

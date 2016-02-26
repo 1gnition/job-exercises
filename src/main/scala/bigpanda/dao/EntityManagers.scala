@@ -11,4 +11,8 @@ object EntityManagers {
   def get: EntityManager = {
     emf.createEntityManager()
   }
+
+  def close(): Unit = {
+    emf.close()
+  }
 }

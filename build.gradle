@@ -20,7 +20,7 @@ dependencies {
             'com.typesafe.akka:akka-actor_2.11:2.4.2',
             'org.hibernate:hibernate-entitymanager:5.0.1.Final',
             'org.hibernate:hibernate-core:5.0.1.Final',
-            'org.xerial:sqlite-jdbc:3.7.2'
+            'com.h2database:h2:1.4.191'
     )
 }
 

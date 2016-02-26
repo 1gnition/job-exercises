@@ -1,12 +1,11 @@
 package bigpanda.dao
 
 import java.util
-import javax.persistence.{EntityManager, EntityTransaction, NoResultException, Query}
+import javax.persistence.{EntityManager, Query}
 
 import bigpanda.entities.WordStat
 
 import scala.collection.JavaConversions._
-import scala.util.{Failure, Success, Try}
 
 /**
   * Created by orip on 2/26/2016.
@@ -15,30 +14,30 @@ object WordStatDao {
   private val em: EntityManager = EntityManagers.get
 
   def getAll: List[WordStat] = {
-    val tx: EntityTransaction = em.getTransaction
-    tx.begin()
     val query: Query = em.createQuery("from WordStat")
     val list: util.List[_] = query.getResultList
-    tx.commit()
     list.toList.asInstanceOf[List[WordStat]]
   }
 
   def inc(word: String): Unit = {
-    val tx: EntityTransaction = em.getTransaction
-    tx.begin()
-    val query: Query = em.createQuery(s"from WordStat where word = '$word'")
-    val triedStat: Try[WordStat] = Try(query.getSingleResult.asInstanceOf[WordStat])
-    triedStat match {
-      case Failure(ex: NoResultException) =>
-        tx.commit()
-        tx.begin()
+    try {
+      em.getTransaction.begin()
+      val query: Query = em.createQuery(s"from WordStat where word = '$word'")
+      val list: util.List[_] = query.getResultList
+      if (list.isEmpty) {
         val wordStat: WordStat = new WordStat(word, 1)
         em.persist(wordStat)
-      case Success(wordStat) =>
+      } else {
+        val wordStat: WordStat = list.head.asInstanceOf[WordStat]
         wordStat.cnt += 1
         em.merge(wordStat)
-      case Failure(ex) => throw ex
+      }
+    } catch {
+      case ex: Throwable =>
+        em.getTransaction.rollback()
+        println(ex.getMessage)
+    } finally {
+      em.getTransaction.commit()
     }
-    tx.commit()
   }
 }

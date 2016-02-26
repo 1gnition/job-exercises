@@ -9,11 +9,11 @@
         <class>bigpanda.entities.EventStat</class>
         <class>bigpanda.entities.WordStat</class>
         <properties>
-            <property name="hibernate.connection.driver_class" value="org.sqlite.JDBC" />
-            <property name="hibernate.connection.url" value="jdbc:sqlite:stat.db" />
+            <property name="hibernate.connection.driver_class" value="org.h2.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:h2:mem:test" />
             <property name="hibernate.connection.username" value="" />
             <property name="hibernate.connection.password" value="" />
-            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
             <property name="hibernate.hbm2ddl.auto" value="create" />
             <!--<property name="hibernate.show_sql" value="true" />-->
             <!--<property name="hibernate.format_sql" value="true" />-->
