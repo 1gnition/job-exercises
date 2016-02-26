@@ -1,8 +1,10 @@
-package bigpanda
+package bigpanda.pipeline.impl
 
 import java.io.{BufferedReader, InputStream, InputStreamReader}
 
-import scala.util.{Success, Failure, Try}
+import bigpanda.pipeline.api.InputConsumer
+
+import scala.util.{Failure, Success, Try}
 
 /**
   * Created by orip on 2/26/2016.

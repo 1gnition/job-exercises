@@ -1,6 +1,6 @@
-package bigpanda
+package bigpanda.rest
 
-import bigpanda.dao.{WordStatDao, EventStatDao}
+import bigpanda.dao.{EventStatDao, WordStatDao}
 import spray.routing.SimpleRoutingApp
 
 object StatRoute extends SimpleRoutingApp {

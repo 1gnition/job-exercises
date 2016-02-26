@@ -1,4 +1,6 @@
-package bigpanda
+package bigpanda.pipeline.api
+
+import bigpanda.pipeline.impl.FileInputConsumer
 
 /**
   * Created by orip on 2/26/2016.

@@ -1,5 +1,7 @@
-package bigpanda
+package bigpanda.pipeline.impl
 
+import bigpanda.datamodel.Event
+import bigpanda.pipeline.api.InputParser
 import org.json4s.jackson.Serialization
 import org.json4s.native.JsonMethods
 import org.json4s.{NoTypeHints, _}

@@ -1,11 +1,13 @@
-package bigpanda
+package bigpanda.pipeline.impl
 
-import bigpanda.dao.{WordStatDao, EventStatDao}
+import bigpanda.dao.{EventStatDao, WordStatDao}
+import bigpanda.datamodel.Event
+import bigpanda.pipeline.api.EventProcessor
 
 /**
   * Created by orip on 2/26/2016.
   */
-class EventProcessor {
+class PandaEventProcessor extends EventProcessor[Event] {
   def process(event: Event): Unit = {
     event match {
       case Event(eventType, data, _) =>

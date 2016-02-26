@@ -1,4 +1,4 @@
-package bigpanda
+package bigpanda.datamodel
 
 /**
   * Created by orip on 2/26/2016.

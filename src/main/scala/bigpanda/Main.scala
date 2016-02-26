@@ -1,6 +1,10 @@
 package bigpanda
 
 import akka.actor.ActorSystem
+import bigpanda.pipeline._
+import bigpanda.pipeline.api.{InputParser, InputConsumer, EventProcessor}
+import bigpanda.pipeline.impl.{PandaEventProcessor, JsonInputParser, FileInputConsumer}
+import bigpanda.rest.StatRoute
 import spray.routing.SimpleRoutingApp
 
 import scala.util.Try
@@ -22,7 +26,7 @@ object Main extends App with SimpleRoutingApp {
 
   private val consumer: FileInputConsumer = InputConsumer.newFileOutputConsumer(path)
   private val parser: JsonInputParser = InputParser.newJsonInputParser
-  private val processor: EventProcessor = new EventProcessor
+  private val processor: PandaEventProcessor = EventProcessor.newPandaEventProcessor
 
   startREST()
 
