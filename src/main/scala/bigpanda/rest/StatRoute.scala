@@ -9,14 +9,14 @@ object StatRoute extends SimpleRoutingApp {
     path("stats" / "events") {
       get {
         complete {
-          EventStatDao.getAll.toString()
+          JsonConverter.toJsonEventStats(EventStatDao.getAll)
         }
       }
     } ~
       path("stats" / "words") {
         get {
           complete {
-            WordStatDao.getAll.toString()
+            JsonConverter.toJsonWordStats(WordStatDao.getAll)
           }
         }
       }
