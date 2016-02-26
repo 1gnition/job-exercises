@@ -14,8 +14,8 @@ class FileInputConsumer(path: String) extends InputConsumer {
   private val reader = new BufferedReader(new InputStreamReader(stream))
 
   override def getLine: Option[String] = {
-    val tried: Try[String] = Try(reader.readLine())
-    tried match {
+    val maybeLine: Try[String] = Try(reader.readLine())
+    maybeLine match {
       case Failure(ex) => None
       case Success(line) if line != null => Some(line)
       case Success(line) if line == null => None

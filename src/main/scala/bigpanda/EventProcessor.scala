@@ -1,5 +1,7 @@
 package bigpanda
 
+import bigpanda.dao.{WordStatDao, EventStatDao}
+
 /**
   * Created by orip on 2/26/2016.
   */
@@ -7,8 +9,8 @@ class EventProcessor {
   def process(event: Event): Unit = {
     event match {
       case Event(eventType, data, _) =>
-        Main.events(eventType) += 1
-        Main.words(data) += 1
+        EventStatDao.inc(eventType)
+        WordStatDao.inc(data)
     }
   }
 }

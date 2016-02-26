@@ -1,0 +1,23 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="pu">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>bigpanda.entities.EventStat</class>
+        <class>bigpanda.entities.WordStat</class>
+        <properties>
+            <property name="hibernate.connection.driver_class" value="org.sqlite.JDBC" />
+            <property name="hibernate.connection.url" value="jdbc:sqlite:stat.db" />
+            <property name="hibernate.connection.username" value="" />
+            <property name="hibernate.connection.password" value="" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect" />
+            <!--<property name="hibernate.show_sql" value="true" />-->
+            <!--<property name="hibernate.format_sql" value="true" />-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+        </properties>
+    </persistence-unit>
+
+</persistence>

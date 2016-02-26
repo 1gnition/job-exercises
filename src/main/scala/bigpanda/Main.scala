@@ -3,7 +3,6 @@ package bigpanda
 import akka.actor.ActorSystem
 import spray.routing.SimpleRoutingApp
 
-import scala.collection.mutable
 import scala.util.Try
 
 /**
@@ -21,12 +20,11 @@ object Main extends App with SimpleRoutingApp {
   }
   private val path: String = maybePath.get
 
-  @volatile var events: mutable.Map[String, Long] = mutable.Map.empty.withDefaultValue(0)
-  @volatile var words: mutable.Map[String, Long] = mutable.Map.empty.withDefaultValue(0)
-
   private val consumer: FileInputConsumer = InputConsumer.newFileOutputConsumer(path)
   private val parser: JsonInputParser = InputParser.newJsonInputParser
   private val processor: EventProcessor = new EventProcessor
+
+  startREST()
 
   Iterator.continually(consumer.getLine) foreach {
     maybeLine => {
