@@ -11,8 +11,6 @@ class JsonInputParser extends InputParser {
   implicit val formats = Serialization.formats(NoTypeHints)
 
   override def parse(json: String): Event = {
-    JsonMethods.parse(json)
-      .camelizeKeys
-      .extract[Event]
+    JsonMethods.parse(json).camelizeKeys.extract[Event]
   }
 }

@@ -11,29 +11,45 @@ import scala.util.Try
   */
 object Main extends App with SimpleRoutingApp {
 
+  private val host: String = sys.props.getOrElse("host", "localhost")
+  private val port: Int = sys.props.getOrElse("port", "8080").toInt
+
+  private val maybePath: Option[String] = sys.props.get("gen.path")
+  if (maybePath.isEmpty) {
+    sys.error("error: \"gen.path\" property not given")
+    sys.exit(1)
+  }
+  private val path: String = maybePath.get
+
   @volatile var events: mutable.Map[String, Long] = mutable.Map.empty.withDefaultValue(0)
   @volatile var words: mutable.Map[String, Long] = mutable.Map.empty.withDefaultValue(0)
 
-  val consumer: FileInputConsumer = InputConsumer.newFileOutputConsumer("C:\\Users\\orip\\Desktop\\generator-windows-amd64.exe")
-  val parser: JsonInputParser = InputParser.newJsonInputParser
+  private val consumer: FileInputConsumer = InputConsumer.newFileOutputConsumer(path)
+  private val parser: JsonInputParser = InputParser.newJsonInputParser
   private val processor: EventProcessor = new EventProcessor
 
-  implicit val system = ActorSystem("my-system")
-
-  startServer("localhost", 8080)(StatRoute.route)
-
-  Iterator.continually(consumer.getLine).foreach(maybeLine => {
-    for {
-      line <- maybeLine
-      event <- Try(parser.parse(line))
-    } {
-      processor.process(event)
+  Iterator.continually(consumer.getLine) foreach {
+    maybeLine => {
+      for {
+        line <- maybeLine
+        event <- Try(parser.parse(line))
+      } {
+        processor.process(event)
+      }
     }
-  })
+  }
 
   sys addShutdownHook {
+    clean()
+  }
+
+  private def clean(): Unit = {
     consumer.close()
   }
 
+  private def startREST(): Unit = {
+    implicit val system = ActorSystem("my-system")
+    startServer(host, port)(StatRoute.route)
+  }
 }
 
