@@ -32,9 +32,7 @@ object WordStatDao {
       case Failure(ex: NoResultException) =>
         tx.commit()
         tx.begin()
-        val wordStat: WordStat = new WordStat()
-        wordStat.word = word
-        wordStat.cnt = 1
+        val wordStat: WordStat = new WordStat(word, 1)
         em.persist(wordStat)
       case Success(wordStat) =>
         wordStat.cnt += 1

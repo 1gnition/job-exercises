@@ -31,9 +31,7 @@ object EventStatDao {
       case Failure(ex: NoResultException) =>
         tx.commit()
         tx.begin()
-        val eventStat: EventStat = new EventStat()
-        eventStat.eventType = eventType
-        eventStat.cnt = 1
+        val eventStat: EventStat = new EventStat(eventType, 1)
         em.persist(eventStat)
       case Success(eventStat) =>
         eventStat.cnt += 1
