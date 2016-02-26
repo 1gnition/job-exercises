@@ -4,7 +4,7 @@ package bigpanda
   * Created by orip on 2/26/2016.
   */
 trait InputConsumer {
-  def getLine: String
+  def getLine: Option[String]
   def close()
 }
 

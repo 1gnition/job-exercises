@@ -4,7 +4,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'scala'
 apply plugin: 'application'
 
-mainClassName = 'bigpanda.App'
+mainClassName = 'bigpanda.Main'
 
 repositories {
     mavenCentral()
@@ -14,6 +14,9 @@ dependencies {
     compile (
             'org.scala-lang:scala-library:2.11.7',
             'org.json4s:json4s-native_2.11:3.3.0',
-            'org.json4s:json4s-jackson_2.11:3.3.0'
+            'org.json4s:json4s-jackson_2.11:3.3.0',
+            'io.spray:spray-can_2.11:1.3.3',
+            'io.spray:spray-routing_2.11:1.3.3',
+            'com.typesafe.akka:akka-actor_2.11:2.4.2'
     )
 }
