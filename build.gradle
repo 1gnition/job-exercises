@@ -1,3 +1,19 @@
 group 'big-panda'
 version '1.0-SNAPSHOT'
 
+apply plugin: 'scala'
+apply plugin: 'application'
+
+mainClassName = 'bigpanda.App'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile (
+            'org.scala-lang:scala-library:2.11.7',
+            'org.json4s:json4s-native_2.11:3.3.0',
+            'org.json4s:json4s-jackson_2.11:3.3.0'
+    )
+}
